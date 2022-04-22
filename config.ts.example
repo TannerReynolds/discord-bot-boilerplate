@@ -1,7 +1,7 @@
 const { Intents } = require("discord.js");
 
 /* config */
-const config = {
+const config: object = {
   // Bot Admins, level 9 by default. Array of user ID strings.
   "admins": [],
 
@@ -60,7 +60,7 @@ const config = {
       */
       check: (message) => {
         try {
-          const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === message.settings.modRole.toLowerCase());
+          const modRole: any = message.guild.roles.cache.find(r => r.name.toLowerCase() === message.settings.modRole.toLowerCase());
           if (modRole && message.member.roles.cache.has(modRole.id)) return true;
         } catch (e) {
           return false;
@@ -72,7 +72,7 @@ const config = {
       name: "Administrator", 
       check: (message) => {
         try {
-          const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === message.settings.adminRole.toLowerCase());
+          const adminRole: any = message.guild.roles.cache.find(r => r.name.toLowerCase() === message.settings.adminRole.toLowerCase());
           return (adminRole && message.member.roles.cache.has(adminRole.id));
         } catch (e) {
           return false;
@@ -88,7 +88,7 @@ const config = {
       * Otherwise it will return false.
       */
       check: (message) => {
-        const serverOwner = message.author ?? message.user;
+        const serverOwner: any = message.author ?? message.user;
         return message.guild?.ownerId === serverOwner.id;
       }
     },
@@ -101,8 +101,8 @@ const config = {
       name: "Bot Support",
       // The check is by reading if an ID is part of this array. Yes, this means you need to
       // change this and reboot the bot to add a support user. Make it better yourself!
-      check: (message) => {
-        const botSupport = message.author ?? message.user;
+      check: (message: any) => {
+        const botSupport: any = message.author ?? message.user;
         return config.support.includes(botSupport.id);
       }
     },
@@ -111,7 +111,7 @@ const config = {
     { level: 9,
       name: "Bot Admin",
       check: (message) => {
-        const botAdmin = message.author ?? message.user;
+        const botAdmin: any = message.author ?? message.user;
         return config.admins.includes(botAdmin.id);
       }
     },
@@ -126,7 +126,7 @@ const config = {
       name: "Bot Owner", 
       // Another simple check, compares the message author id to a list of owners found in the bot application.
       check: (message) => {
-        const owner = message.author ?? message.user;
+        const owner: any = message.author ?? message.user;
         return owner.id === process.env.OWNER;
       }
     }

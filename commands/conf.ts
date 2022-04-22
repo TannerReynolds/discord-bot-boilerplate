@@ -6,16 +6,16 @@ change it for that guild. The `add` action adds a key to the configuration of ev
 your bot. The `del` action removes the key also from every guild, and loses its value forever.
 */
 
-const { codeBlock } = require("@discordjs/builders");
-const config = require("../config.js");
-const { awaitReply } = require("../modules/functions.js");
-const { settings } = require("../modules/settings.js");
+const { codeBlock }: any = require("@discordjs/builders");
+const config: any = require("../config.js");
+const { awaitReply }: any = require("../modules/functions.js");
+const { settings }: any = require("../modules/settings.js");
 
 exports.run = async (client, message, [action, key, ...value], level) => { // eslint-disable-line no-unused-vars
 
   // Retrieve Default Values from the default settings in the bot.
-  const defaults = settings.get("default");
-  const replying = settings.ensure(message.guild.id, config.defaultSettings).commandReply;
+  const defaults: any = settings.get("default");
+  const replying: any = settings.ensure(message.guild.id, config.defaultSettings).commandReply;
 
   // Adding a new key adds it to every guild (it will be visible to all of them)
   if (action === "add") {
