@@ -10,17 +10,21 @@
 // const action = args[0]; const key = args[1]; const value = args.slice(2);
 // OR the same as:
 // const [action, key, ...value] = args;
-const { codeBlock } = require("@discordjs/builders");
-const { settings } = require("../modules/settings.js");
-const { awaitReply } = require("../modules/functions.js");
 
-exports.run = async (client, message, [action, key, ...value], level) => { // eslint-disable-line no-unused-vars
+// @ts-ignore
+const { codeBlock }: any = require("@discordjs/builders");
+// @ts-ignore
+const { settings }: any = require("../modules/settings.js");
+// @ts-ignore
+const { awaitReply }: any = require("../modules/functions.js");
+
+exports.run = async (client: any, message: any, [action, key, ...value]: any, level: any) => { // eslint-disable-line no-unused-vars
 
   // Retrieve current guild settings (merged) and overrides only.
-  const serverSettings = message.settings;
-  const defaults = settings.get("default");
-  const overrides = settings.get(message.guild.id);
-  const replying = serverSettings.commandReply;
+  const serverSettings: any = message.settings;
+  const defaults: any = settings.get("default");
+  const overrides: any = settings.get(message.guild.id);
+  const replying: any = serverSettings.commandReply;
   if (!settings.has(message.guild.id)) settings.set(message.guild.id, {});
   
   // Edit an existing key value
@@ -29,7 +33,7 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
     if (!key) return message.reply({ content: "Please specify a key to edit", allowedMentions: { repliedUser: (replying === "true") }});
     // User must specify a key that actually exists!
     if (!defaults[key]) return message.reply({ content: "This key does not exist in the settings", allowedMentions: { repliedUser: (replying === "true") }});
-    const joinedValue = value.join(" ");
+    const joinedValue: any = value.join(" ");
     // User must specify a value to change.
     if (joinedValue.length < 1) return message.reply({ content: "Please specify a new value", allowedMentions: { repliedUser: (replying === "true") }});
     // User must specify a different value than the current one.
@@ -52,7 +56,7 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
     if (!overrides[key]) return message.reply({ content: "This key does not have an override and is already using defaults.", allowedMentions: { repliedUser: (replying === "true") }});
     
     // Good demonstration of the custom awaitReply method in `./modules/functions.js` !
-    const response = await awaitReply(message, `Are you sure you want to reset ${key} to the default value?`);
+    const response: any = await awaitReply(message, `Are you sure you want to reset ${key} to the default value?`);
 
     // If they respond with y or yes, continue.
     if (["y", "yes"].includes(response.toLowerCase())) {
@@ -69,11 +73,11 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
   if (action === "get") {
     if (!key) return message.reply({ content: "Please specify a key to view", allowedMentions: { repliedUser: (replying === "true") }});
     if (!defaults[key]) return message.reply({ content: "This key does not exist in the settings", allowedMentions: { repliedUser: (replying === "true") }});
-    const isDefault = !overrides[key] ? "\nThis is the default global default value." : "";
+    const isDefault: any = !overrides[key] ? "\nThis is the default global default value." : "";
     message.reply({ content: `The value of ${key} is currently ${serverSettings[key]}${isDefault}`, allowedMentions: { repliedUser: (replying === "true") }});
   } else {
     // Otherwise, the default action is to return the whole configuration;
-    const array = [];
+    const array: Array<any> = [];
     Object.entries(serverSettings).forEach(([key, value]) => {
       array.push(`${key}${" ".repeat(20 - key.length)}::  ${value}`); 
     });

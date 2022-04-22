@@ -1,14 +1,18 @@
+// @ts-ignore
 const { version } = require("discord.js");
+// @ts-ignore
 const { codeBlock } = require("@discordjs/builders");
+// @ts-ignore
 const { DurationFormatter } = require("@sapphire/time-utilities");
+// @ts-ignore
 const durationFormatter = new DurationFormatter();
 
-exports.run = (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const duration = durationFormatter.format(client.uptime);
-  const stats = codeBlock("asciidoc", `= STATISTICS =
+exports.run = (client: any, message: any, args: any, level: any) => { // eslint-disable-line no-unused-vars
+  const duration: any = durationFormatter.format(client.uptime);
+  const stats: any = codeBlock("asciidoc", `= STATISTICS =
   • Mem Usage  :: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
   • Uptime     :: ${duration}
-  • Users      :: ${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b).toLocaleString()}
+  • Users      :: ${client.guilds.cache.map((g: any) => g.memberCount).reduce((a: any, b: any) => a + b).toLocaleString()}
   • Servers    :: ${client.guilds.cache.size.toLocaleString()}
   • Channels   :: ${client.channels.cache.size.toLocaleString()}
   • Discord.js :: v${version}

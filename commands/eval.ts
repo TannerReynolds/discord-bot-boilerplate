@@ -3,7 +3,8 @@
 // can be used to do **anything** on your machine, from stealing information to
 // purging the hard drive. DO NOT LET ANYONE ELSE USE THIS
 
-const { codeBlock } = require("@discordjs/builders");
+// @ts-ignore
+const { codeBlock }: any = require("@discordjs/builders");
 
 /*
   MESSAGE CLEAN FUNCTION
@@ -13,7 +14,7 @@ const { codeBlock } = require("@discordjs/builders");
   and stringifies objects!
   This is mostly only used by the Eval and Exec commands.
 */
-async function clean(client, text) {
+async function clean(client: any, text: any) {
   if (text && text.constructor.name == "Promise")
     text = await text;
   if (typeof text !== "string")
@@ -30,10 +31,10 @@ async function clean(client, text) {
 
 // However it's, like, super ultra useful for troubleshooting and doing stuff
 // you don't want to put in a command.
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const code = args.join(" ");
-  const evaled = eval(code);
-  const cleaned = await clean(client, evaled);
+exports.run = async (client: any, message: any, args: any, level: any) => { // eslint-disable-line no-unused-vars
+  const code: string = args.join(" ");
+  const evaled: any = eval(code);
+  const cleaned: any = await clean(client, evaled);
   message.channel.send(codeBlock("js", cleaned));
 };
 

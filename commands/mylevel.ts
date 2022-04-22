@@ -1,8 +1,10 @@
-const config = require("../config.js");
-const { settings } = require("../modules/settings.js");
-exports.run = async (client, message, args, level) => {
-  const friendly = config.permLevels.find(l => l.level === level).name;
-  const replying = settings.ensure(message.guild.id, config.defaultSettings).commandReply;
+// @ts-ignore
+const config: any = require("../config.js");
+// @ts-ignore
+const { settings }: any = require("../modules/settings.js");
+exports.run = async (client: any, message: any, args: any, level: any) => {
+  const friendly: any = config.permLevels.find((l: any) => l.level === level).name;
+  const replying: any = settings.ensure(message.guild.id, config.defaultSettings).commandReply;
   message.reply({ content: `Your permission level is: ${level} - ${friendly}`, allowedMentions: { repliedUser: (replying === "true") }});
 };
 

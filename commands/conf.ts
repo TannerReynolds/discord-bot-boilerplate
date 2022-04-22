@@ -6,12 +6,16 @@ change it for that guild. The `add` action adds a key to the configuration of ev
 your bot. The `del` action removes the key also from every guild, and loses its value forever.
 */
 
+// @ts-ignore
 const { codeBlock }: any = require("@discordjs/builders");
+// @ts-ignore
 const config: any = require("../config.js");
+// @ts-ignore
 const { awaitReply }: any = require("../modules/functions.js");
+// @ts-ignore
 const { settings }: any = require("../modules/settings.js");
 
-exports.run = async (client, message, [action, key, ...value], level) => { // eslint-disable-line no-unused-vars
+exports.run = async (client: any, message: any, [action, key, ...value]: any, level: any) => { // eslint-disable-line no-unused-vars
 
   // Retrieve Default Values from the default settings in the bot.
   const defaults: any = settings.get("default");
@@ -50,7 +54,7 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
     if (!defaults[key]) return message.reply({ content: "This key does not exist in the settings", allowedMentions: { repliedUser: (replying === "true") }});
     
     // Throw the 'are you sure?' text at them.
-    const response = await awaitReply(message, `Are you sure you want to permanently delete ${key} from all guilds? This **CANNOT** be undone.`);
+    const response: any = await awaitReply(message, `Are you sure you want to permanently delete ${key} from all guilds? This **CANNOT** be undone.`);
 
     // If they respond with y or yes, continue.
     if (["y", "yes"].includes(response)) {
@@ -61,7 +65,7 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
       
       // then we loop on all the guilds and remove this key if it exists.
       // "if it exists" is done with the filter (if the key is present and it's not the default config!)
-      for (const [guildId, conf] of settings.filter((setting, id) => setting[key] && id !== "default")) {
+      for (const [guildId, conf] of settings.filter((setting: any, id: any) => setting[key] && id !== "default")) {
         delete conf[key];
         settings.set(guildId, conf);
       }
@@ -82,7 +86,7 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
 
   // Display all default settings.
   } else {
-    const array = [];
+    const array: Array<any> = [];
     Object.entries(settings.get("default")).forEach(([key, value]) => {
       array.push(`${key}${" ".repeat(20 - key.length)}::  ${value}`); 
     });
